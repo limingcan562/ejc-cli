@@ -24,5 +24,10 @@
   "bugs": {
     "url": "https://github.com/limingcan562/excel-json-cli/issues"
   },
-  "homepage": "https://github.com/limingcan562/excel-json-cli#readme"
+  "homepage": "https://github.com/limingcan562/excel-json-cli#readme",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "commander": "^10.0.0",
+    "node-xlsx": "^0.21.0"
+  }
 }
