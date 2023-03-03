@@ -1,0 +1,28 @@
+{
+  "name": "excel-json-cli",
+  "version": "0.0.1",
+  "description": "A tool that converts excel to json for easy data management | 一个可以把excel转成json，方便数据管理的工具",
+  "main": "./src/index.js",
+  "bin": {
+    "excel-json-cli": "./bin/cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/limingcan562/excel-json-cli.git"
+  },
+  "keywords": [
+    "excel",
+    "json",
+    "node",
+    "cli"
+  ],
+  "author": "limingcan562",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/limingcan562/excel-json-cli/issues"
+  },
+  "homepage": "https://github.com/limingcan562/excel-json-cli#readme"
+}
