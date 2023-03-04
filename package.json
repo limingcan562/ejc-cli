@@ -1,10 +1,10 @@
 {
-  "name": "excel-json-cli",
+  "name": "ejc-cli",
   "version": "0.0.1",
   "description": "A tool that converts excel to json for easy data management | 一个可以把excel转成json，方便数据管理的工具",
   "main": "./src/index.js",
   "bin": {
-    "excel-json-cli": "./bin/cli.js"
+    "ejc-cli": "./bin/cli.js"
   },
   "scripts": {
     "start": "npm link"
