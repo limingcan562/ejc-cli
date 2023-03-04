@@ -9,7 +9,8 @@ errorLog,
 successText,
 warnText,
 errorText} = require('../src/log/index'),
-path = require('path');
+path = require('path'),
+fs = require('fs-extra');
 
 // 基础配置
 program
@@ -40,7 +41,12 @@ program
 .command('gt')
 .description(successText('获取excel模板文件'))
 .action(function(option) {
-    console.log('下载');
+    try {
+        fs.copySync(path.resolve('.', './xlsx'), path.resolve('.', './xlsx_template'));
+        successLog('模板excel获取成功');
+    } catch (err) {
+        errorLog(err);
+    }
 });
 
 

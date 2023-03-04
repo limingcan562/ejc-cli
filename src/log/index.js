@@ -1,10 +1,10 @@
 const chalk = require('chalk');
 
-const successLog = text => console.log(chalk.green(`success: ${text}`));
+const successLog = text => console.log(chalk.green(`✅success: ${text}`));
 
-const warnLog = text => console.log(chalk.yellow(`warn: ${text}`));
+const warnLog = text => console.log(chalk.yellow(`⚠️warn: ${text}`));
 
-const errorLog = text => console.log(chalk.red(`error: ${text}`));
+const errorLog = text => console.log(chalk.red(`❌error: ${text}`));
 
 const successText = text => chalk.green(text);
 
