@@ -41,11 +41,16 @@ program
 .command('gt')
 .description(successText('获取excel模板文件'))
 .action(function(option) {
+    const
+    currentProjectPath = path.resolve('.'), // 用户当前项目所在目录
+    cliPath = __dirname; // ejc-cli 命令执行所在的文件
+    // console.log(currentProjectPath, cliPath);
+
     try {
-        fs.copySync(path.resolve('.', './xlsx'), path.resolve('.', './xlsx_template'));
+        fs.copySync(path.resolve(cliPath, '../xlsx'), `${currentProjectPath}/xlsx_template`);
         successLog('模板excel获取成功');
     } catch (err) {
-        errorLog(err);
+        console.log(errorText(err));;
     }
 });
 
