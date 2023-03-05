@@ -1,22 +1,21 @@
 #!/usr/bin/env node
 
-const chalk = require('chalk');
-
 const
 {Command} = require('commander'),
 program = new Command(),
 pkg = require('../package.json'),
-{successLog,
-warnLog,
-errorLog,
-successText,
-warnText,
-errorText,
-descText,
-infoText
-} = require('../src/log/index'),
 path = require('path'),
-fs = require('fs-extra');
+fs = require('fs-extra'),
+{successLog,
+    warnLog,
+    errorLog,
+    successText,
+    warnText,
+    errorText,
+    descText,
+    infoText
+} = require('../src/log/index'),
+create = require('../src/index');
 
 // 基础配置
 program
@@ -32,6 +31,7 @@ program
 .option('-i, --input [path]', infoText('输入excel表格地址'))
 .option('-o, --output [path]', infoText('json数据输出地址'))
 .option('-k, --keys [string]', infoText('json数据每一行对应的keys'))
+.option('-s, --start-line [number]', infoText('从excel表格第几行开始读取数据'))
 .action(function(options) {
     // console.log(options);
     if (options.input === true) {
@@ -39,6 +39,10 @@ program
     }
     else if (!options.input.includes('/')) {
         errorLog('输入地址格式有误');
+    }
+    // 开始生成
+    else {
+        create(options);
     }
 });
 
