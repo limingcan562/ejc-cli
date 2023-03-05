@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+
+const chalk = require('chalk');
+
 const
 {Command} = require('commander'),
 program = new Command(),
@@ -8,23 +11,27 @@ warnLog,
 errorLog,
 successText,
 warnText,
-errorText} = require('../src/log/index'),
+errorText,
+descText,
+infoText
+} = require('../src/log/index'),
 path = require('path'),
 fs = require('fs-extra');
 
 // 基础配置
 program
 .name(pkg.name)
-.description('一个可以通过命令行把excel表格转json数据的工具', 'yellow')
-.version(pkg.version, '-v', successText('当前版本'))
-.helpOption('-h, --help', successText('查看帮助'));
+// .usage("[global options] command")
+.description(`=> ${descText('让excel表格更好地管理你的json数据')}`)
+.version(pkg.version, '-v', infoText('查看当前版本'))
+.helpOption('-h, --help', infoText('查看帮助'));
 
 
 // 转换功能
 program
-.option('-i, --input [path]', successText('输入excel表格地址'))
-.option('-o, --output [path]', successText('json数据输出地址'))
-.option('-k, --keys [string]', successText('json数据每一行对应的keys'))
+.option('-i, --input [path]', infoText('输入excel表格地址'))
+.option('-o, --output [path]', infoText('json数据输出地址'))
+.option('-k, --keys [string]', infoText('json数据每一行对应的keys'))
 .action(function(options) {
     // console.log(options);
     if (options.input === true) {
@@ -39,7 +46,7 @@ program
 // 下载模板excel文件
 program
 .command('gt')
-.description(successText('获取excel模板文件'))
+.description(infoText('获取excel模板文件'))
 .action(function(option) {
     const
     currentProjectPath = path.resolve('.'), // 用户当前项目所在目录
