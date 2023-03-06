@@ -31,7 +31,8 @@ program
 .option('-i, --input [path]', infoText('输入excel表格地址'))
 .option('-o, --output [path]', infoText('json数据输出地址'))
 .option('-k, --keys [string]', infoText('json数据每一行对应的keys'))
-.option('-s, --start-line [number]', infoText('从excel表格第几行开始读取数据'))
+.option('-sr, --start-row [number]', infoText('从excel表格第几行开始读取数据'))
+.option('-js, --json-name [string]', infoText('输出的json名字'))
 .action(function(options) {
     // console.log(options);
     if (options.input === true) {
