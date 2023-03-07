@@ -7,9 +7,7 @@ pkg = require('../package.json'),
 {errorLog} = require('../src/log/index'),
 {descText, infoText} = require('../src/text/index'),
 {convertToJson, getTemplate} = require('../src/index'),
-{isPath} = require('../src/tool/index'),
-fs = require('fs-extra'),
-path = require('path');
+{isPath, trim} = require('../src/tool/index');
 
 // 基础配置
 program
@@ -22,25 +20,31 @@ program
 
 // 转换功能
 program
-.option('-i, --input [path]', infoText('输入excel表格地址'))
-.option('-o, --output [path]', infoText('json数据输出地址'))
+.option('-i, --input [path]', infoText('excel表格所在路径'))
+.option('-o, --output [path]', infoText('json数据保存路径'))
+.option('-j, --json-name [string]', infoText('输出的json名字'))
 .option('-k, --keys [string]', infoText('excel表格每一行对应的keys'))
 .option('-s, --start-row [number]', infoText('从excel表格第几行开始读取数据'))
-.option('-j, --json-name [string]', infoText('输出的json名字'))
 .action(function(options) {
     // console.log(options);
-    if (options.input === true || !options.input) {
-        errorLog('input不能为空');
-    }
-    else if (!options.input.includes('/')) {
-        errorLog('输入地址格式有误');
-    }
-    // 开始生成
-    else {
-        convertToJson(options);
+    try {
+        if (options.input === true || !options.input) {
+            errorLog('excel表格所在路径不能为空');
+        }
+        else if (!isPath(options.input)) {
+            errorLog('excel表格所在路径格式有误');
+        }
+        else if (options.output && !isPath(options.output)) {
+            errorLog('json数据保存路径格式有误');
+        }
+        // 开始生成
+        else {
+            convertToJson(options);
+        }
+    } catch (error) {
+        errorLog(error);
     }
 });
-
 
 // 下载模板excel文件
 program

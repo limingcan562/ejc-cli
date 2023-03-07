@@ -2,8 +2,9 @@ const
 xlsx = require('node-xlsx'),
 fs = require('fs-extra'),
 path = require('path'),
-{successLog, errorLog, warnLog, warnText} = require('./log/index'),
-config = require('./config/index');
+{successLog, errorLog, warnLog, infoLog} = require('./log/index'),
+config = require('./config/index'),
+{trim} = require('./tool/index');
 
 
 // 将excel转换成json
@@ -29,7 +30,7 @@ function convertToJson(options) {
     finalJsonName = trim(userJsonName) ? userJsonName.split(',') : config.prefixJsonName,
     finalJsonArr = [];
 
-    console.log(warnText('生成json中...'));
+    infoLog(`json数据生成中...`);
 
     // 最外层
     for (let index = 0; index < totalSheet.length; index++) {
@@ -84,8 +85,7 @@ function convertToJson(options) {
         }
     });
 
-
-    successLog('json文件生成成功')
+    successLog('json文件生成成功');
 }
 
 
