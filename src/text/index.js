@@ -4,7 +4,7 @@ const chalk = require('chalk');
 const successText = text => chalk.green(text);
 const warnText = text => chalk.yellow(text);
 const errorText = text => chalk.red(text);
-const descText = text => chalk.gray(text);
+const descText = text => chalk.magenta(text);
 const infoText = text => chalk.cyan(text);
 
 module.exports = {

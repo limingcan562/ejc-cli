@@ -7,13 +7,13 @@ pkg = require('../package.json'),
 {errorLog} = require('../src/log/index'),
 {descText, infoText} = require('../src/text/index'),
 {convertToJson, getTemplate} = require('../src/index'),
-{isPath, trim} = require('../src/tool/index');
+{isPath} = require('../src/tool/index');
 
 // 基础配置
 program
 .name(pkg.name)
 // .usage("[global options] command")
-.description(`${descText('让可视化的excel表格，更好地管理你的json数据')}`)
+.description(`${descText('=> 让可视化的excel表格，更好地管理你的json数据')}`)
 .version(pkg.version, '-v', infoText('查看当前版本'))
 .helpOption('-h, --help', infoText('查看帮助'));
 

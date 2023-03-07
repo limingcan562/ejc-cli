@@ -1,11 +1,12 @@
 const chalk = require('chalk');
+const logSymbols = require('log-symbols');
 const log = console.log;
 
 // 输出带颜色的打印
-const successLog = text => log(chalk.bgGreen(' success '), chalk.bold.green(text));
-const warnLog = text => log(chalk.bgYellow(' warn '), chalk.bold.yellow(text) );
-const errorLog = text => log(chalk.bgRed(' error '), chalk.bold.red(text));
-const infoLog = text => log(chalk.bgCyan(' info '), chalk.bold.cyan(text));
+const successLog = text => log(logSymbols.success, chalk.green(text));
+const warnLog = text => log(logSymbols.warning, chalk.yellow(text) );
+const errorLog = text => log(logSymbols.error, chalk.red(text));
+const infoLog = text => log(logSymbols.info, chalk.cyan(text));
 
 module.exports = {
     successLog,
