@@ -3,8 +3,7 @@ xlsx = require('node-xlsx'),
 fs = require('fs-extra'),
 path = require('path'),
 {successLog, errorLog, warnLog, warnText} = require('./log/index'),
-config = require('./config/index'),
-{ trim, isPath} = require('./tool/index');
+config = require('./config/index');
 
 
 // 将excel转换成json
@@ -90,21 +89,20 @@ function convertToJson(options) {
 }
 
 
-
 // 获取excel模板文件
 function getTemplate(option) {
     const
     cliPath = __dirname, // ejc-cli 命令执行所在的文件
-    currentProjectPath = path.resolve('.'); // 用户当前项目所在目录
-
+    currentProjectPath = path.resolve('.'); // 用户当前终端打开项目所在目录
+    
     try {
         // 没有参数时候，excel模板文件，默认输出到用户当前项目根目录下
         if (!option) {
-            fs.copySync(path.resolve(cliPath, '../xlsx'), `${currentProjectPath}/xlsx_template`);
+            fs.copySync(path.resolve(cliPath, `../${config.templateName}`), `${currentProjectPath}/${config.defaultOutTemplateName}`);
         }
         // 有参数时，将excel模板文件输出到用户设定的目录下
         else {
-            fs.copySync(path.resolve(cliPath, '../xlsx'), `${currentProjectPath}/${option}/`);
+            fs.copySync(path.resolve(cliPath, `../${config.templateName}`), `${currentProjectPath}/${option}`);
         }
         successLog('模板excel获取成功');
     } catch (err) {

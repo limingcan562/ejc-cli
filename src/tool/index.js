@@ -1,11 +1,8 @@
 // 去掉字符串空格
 const trim = (str = '') => str.replace(/\s*/g, "");
 
-// 去掉字符串空格
-const isPath = path => {
-    const rg = new RegExp("^[A-z]:\\\\(.+?\\\\)*$");
-    return rg(path);
-};
+// 判断输入的是否为路径
+const isPath = path => (path.includes('/') || path.includes(`\\`));
 
 
 module.exports = {

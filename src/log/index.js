@@ -9,7 +9,7 @@ const errorLog = text => console.log(chalk.red(`error: ${text}`));
 const successText = text => chalk.green(text);
 const warnText = text => chalk.yellow(text);
 const errorText = text => chalk.red(text);
-const descText = text => chalk.gray.underline(text);
+const descText = text => chalk.gray(text);
 const infoText = text => chalk.cyan(text);
 
 module.exports = {
