@@ -4,7 +4,8 @@ const
 {Command} = require('commander'),
 program = new Command(),
 pkg = require('../package.json'),
-{errorLog, descText, infoText} = require('../src/log/index'),
+{errorLog} = require('../src/log/index'),
+{descText, infoText} = require('../src/text/index'),
 {convertToJson, getTemplate} = require('../src/index'),
 {isPath} = require('../src/tool/index'),
 fs = require('fs-extra'),
@@ -45,11 +46,11 @@ program
 program
 .command('gt')
 .description(infoText('获取excel模板文件'))
-.argument('[path]', 'excel模板文件输出地址')
+.argument('[path]', 'excel模板文件输出路径')
 .action(function(option) {
-    console.log(option);
+    // console.log(option);
     if (option && !isPath(option)) {
-        errorLog('excel模板输出路径格式有误')
+        errorLog('输出路径格式有误')
     }
     else {
         getTemplate(option);
