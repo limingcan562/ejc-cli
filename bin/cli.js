@@ -15,7 +15,7 @@ fs = require('fs-extra'),
     descText,
     infoText
 } = require('../src/log/index'),
-{convertToJson} = require('../src/index');
+{convertToJson, getTemplate} = require('../src/index');
 
 // 基础配置
 program
@@ -54,26 +54,7 @@ program
 .description(infoText('获取excel模板文件'))
 .argument('[path]', 'excel模板文件输出地址')
 .action(function(option) {
-    // console.log(option);
-    const
-    cliPath = __dirname, // ejc-cli 命令执行所在的文件
-    currentProjectPath = path.resolve('.'); // 用户当前项目所在目录
-    
-    // console.log(currentProjectPath, cliPath);
-    try {
-        // 没有参数时候，excel模板文件，默认输出到用户当前项目根目录下
-        if (!option) {
-            fs.copySync(path.resolve(cliPath, '../xlsx'), `${currentProjectPath}/xlsx_template`);
-        }
-        // 有参数时，将excel模板文件输出到用户设定的目录下
-        else {
-            fs.copySync(path.resolve(cliPath, '../xlsx'), `${currentProjectPath}/${option}/`);
-        }
-        successLog('模板excel获取成功');
-    } catch (err) {
-        console.log(err);
-    }
-    
+    getTemplate(option);
 });
 
 
