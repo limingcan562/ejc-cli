@@ -15,7 +15,7 @@ fs = require('fs-extra'),
     descText,
     infoText
 } = require('../src/log/index'),
-create = require('../src/index');
+{convertToJson} = require('../src/index');
 
 // 基础配置
 program
@@ -43,7 +43,7 @@ program
     }
     // 开始生成
     else {
-        create(options);
+        convertToJson(options);
     }
 });
 
