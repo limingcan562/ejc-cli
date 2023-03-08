@@ -2,11 +2,11 @@ const
 xlsx = require('node-xlsx'),
 fs = require('fs-extra'),
 path = require('path'),
-// {successLog, errorLog, warnLog, infoLog} = require('./log/index'),
 config = require('./config/index'),
-{trim} = require('./tool/index');
-const { infoText, successText } = require('./text'),
-log = require('./log/index'); 
+{trim} = require('./tool/index'),
+{infoText} = require('./text/index'),
+log = require('./log/index'),
+Table = require('cli-table');
 
 // 将excel转换成json
 function convertToJson(options, spinner) {
@@ -26,11 +26,14 @@ function convertToJson(options, spinner) {
     originalXlsxData = xlsx.parse(`${path.resolve('.', userInput)}`),
     totalSheet = originalXlsxData.filter(item => item.data.length !== 0),
     totalSheetNum = totalSheet.length,
-    finalOutPath = userOut || config.defaluOutPath,
+    finalOutPath = userOut ? path.resolve('.', userOut) : config.defaluOutPath,
     finalkeys = userKeys ? trim(keys).split(',') : config.prefixKeyName,
     finalJsonName = trim(userJsonName) ? userJsonName.split(',') : config.prefixJsonName,
     finalJsonArr = [],
-    finalPathNameArr = [];
+    table = new Table({
+        head: [infoText('Json file name'), infoText('File location')],
+        // colWidths: [50, 100]
+    });
 
     log('json数据生成中...', 'start');
 
@@ -77,45 +80,61 @@ function convertToJson(options, spinner) {
 
     // 输出json文件
     finalJsonArr.forEach((item, index) => {
-        // finalJsonName
+        let 
+        pathName = '',
+        name = '';
+
         // 用户设置了输出的json名
-        let pathName = '';
-        
         if (userJsonName) {
-            pathName = `${finalOutPath}/${finalJsonName[index]}.json`;
-            fs.outputJsonSync(`${finalOutPath}/${finalJsonName[index]}.json`, item);
+            pathName = `${finalOutPath}`;
+            name = `${finalJsonName[index]}.json}`;
         }
         else {
-            pathName = `${finalOutPath}/${config.prefixJsonName}_${index + 1}.json`;
+            pathName = `${finalOutPath}`;
+            name = `${config.prefixJsonName}_${index + 1}.json`;
         }
 
-        fs.outputJsonSync(pathName, item);
-        finalPathNameArr.push(pathName);
+        fs.outputJsonSync(`${pathName}/${name}`, item);
+        table.push([name, pathName]);
     });
+
+
+    // 打印最后的json文件地址
     log('json数据生成成功', 'success');
-
-
-    // finalPathNameArr.forEach(item => {
-    //     log(`json数据地址为 ${item}`, 'info');
-    // });
+    console.log(table.toString());
 }
 
 // 获取excel模板文件
 function getTemplate(option) {
     const
     cliPath = __dirname, // ejc-cli 命令执行所在的文件
-    currentProjectPath = path.resolve('.'); // 用户当前终端打开项目所在目录
-    
+    currentProjectPath = path.resolve('.'), // 用户当前终端打开项目所在目录
+    table = new Table({
+        head: [infoText('excel file name'), infoText('File location')],
+        // colWidths: [50, 100]
+    });
+
     try {
+        let 
+        pathName = '',
+        name = '';
+
         // 没有参数时候，excel模板文件，默认输出到用户当前项目根目录下
         if (!option) {
-            fs.copySync(path.resolve(cliPath, `../${config.templateName}`), `${currentProjectPath}/${config.defaultOutTemplateName}`);
+            pathName = currentProjectPath;
+            name = config.defaultOutTemplateName;
         }
         // 有参数时，将excel模板文件输出到用户设定的目录下
         else {
-            fs.copySync(path.resolve(cliPath, `../${config.templateName}`), `${currentProjectPath}/${option}`);
+            name = option;
         }
+
+        fs.copySync(path.resolve(cliPath, `../template/template.xlsx`), `${path.resolve('.', pathName)}/${name}`);
+
         log('模板excel获取成功', 'success');
+        table.push([name, pathName]);
+        console.log(table.toString());
+
     } catch (err) {
         log(err, 'error');
     }

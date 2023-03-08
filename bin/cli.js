@@ -5,7 +5,7 @@ const
 program = new Command(),
 pkg = require('../package.json'),
 {errorLog} = require('../src/log/index'),
-{descText, infoText, errorText} = require('../src/text/index'),
+{descText, infoText} = require('../src/text/index'),
 {convertToJson, getTemplate} = require('../src/index'),
 {isPath} = require('../src/tool/index'),
 log = require('../src/log/index');
