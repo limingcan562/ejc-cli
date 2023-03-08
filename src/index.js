@@ -100,7 +100,7 @@ function convertToJson(options) {
 
 
     // 打印最后的json文件地址
-    log('json数据生成成功', 'success');
+    log('json data generated successfully', 'success');
     console.log(table.toString());
 }
 
@@ -125,7 +125,7 @@ function getTemplate(option) {
 
         fs.copySync(path.resolve(cliPath, `../template/`), `${path.resolve('./', pathName)}`);
 
-        log('模板excel获取成功', 'success');
+        log('excel template file obtained successfully', 'success');
         table.push([originalTemplate, pathName]);
         console.log(table.toString());
 
