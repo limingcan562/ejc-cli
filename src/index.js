@@ -26,7 +26,7 @@ function convertToJson(options, spinner) {
     originalXlsxData = xlsx.parse(`${path.resolve('.', userInput)}`),
     totalSheet = originalXlsxData.filter(item => item.data.length !== 0),
     totalSheetNum = totalSheet.length,
-    finalOutPath = userOut ? path.resolve('.', userOut) : config.defaluOutPath,
+    finalOutPath = userOut ? path.resolve('./', userOut) : config.defaluOutPath,
     finalkeys = userKeys ? trim(keys).split(',') : config.prefixKeyName,
     finalJsonName = trim(userJsonName) ? userJsonName.split(',') : config.prefixJsonName,
     finalJsonArr = [],
@@ -108,31 +108,25 @@ function convertToJson(options, spinner) {
 function getTemplate(option) {
     const
     cliPath = __dirname, // ejc-cli 命令执行所在的文件
-    currentProjectPath = path.resolve('.'), // 用户当前终端打开项目所在目录
-    table = new Table({
-        head: [infoText('excel file name'), infoText('File location')],
-        // colWidths: [50, 100]
+    originalTemplate = fs.readdirSync(path.resolve(cliPath, `../template/`))[0],
+    table = new Table({ 
+        head: [infoText('excel file name'), infoText('File location')]
     });
 
     try {
-        let 
-        pathName = '',
-        name = '';
+        let pathName = '';
 
-        // 没有参数时候，excel模板文件，默认输出到用户当前项目根目录下
         if (!option) {
-            pathName = currentProjectPath;
-            name = config.defaultOutTemplateName;
+            pathName =  path.resolve('./', config.defaultOutTemplateName);
         }
-        // 有参数时，将excel模板文件输出到用户设定的目录下
         else {
-            name = option;
+            pathName = path.resolve('./', option);
         }
 
-        fs.copySync(path.resolve(cliPath, `../template/template.xlsx`), `${path.resolve('.', pathName)}/${name}`);
+        fs.copySync(path.resolve(cliPath, `../template/`), `${path.resolve('./', pathName)}`);
 
         log('模板excel获取成功', 'success');
-        table.push([name, pathName]);
+        table.push([originalTemplate, pathName]);
         console.log(table.toString());
 
     } catch (err) {
