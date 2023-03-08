@@ -2,13 +2,14 @@ const
 xlsx = require('node-xlsx'),
 fs = require('fs-extra'),
 path = require('path'),
-{successLog, errorLog, warnLog, infoLog} = require('./log/index'),
+// {successLog, errorLog, warnLog, infoLog} = require('./log/index'),
 config = require('./config/index'),
 {trim} = require('./tool/index');
-
+const { infoText, successText } = require('./text'),
+log = require('./log/index'); 
 
 // 将excel转换成json
-function convertToJson(options) {
+function convertToJson(options, spinner) {
     /**
      * @options 用户终端输入的指令
      * @originalXlsxData 最原始的excel表格数据
@@ -28,9 +29,10 @@ function convertToJson(options) {
     finalOutPath = userOut || config.defaluOutPath,
     finalkeys = userKeys ? trim(keys).split(',') : config.prefixKeyName,
     finalJsonName = trim(userJsonName) ? userJsonName.split(',') : config.prefixJsonName,
-    finalJsonArr = [];
+    finalJsonArr = [],
+    finalPathNameArr = [];
 
-    infoLog(`json数据生成中...`);
+    log('json数据生成中...', 'start');
 
     // 最外层
     for (let index = 0; index < totalSheet.length; index++) {
@@ -74,20 +76,29 @@ function convertToJson(options) {
     // console.log(finalJsonArr);
 
     // 输出json文件
-    finalJsonArr.forEach((item, index)=> {
+    finalJsonArr.forEach((item, index) => {
         // finalJsonName
         // 用户设置了输出的json名
+        let pathName = '';
+        
         if (userJsonName) {
+            pathName = `${finalOutPath}/${finalJsonName[index]}.json`;
             fs.outputJsonSync(`${finalOutPath}/${finalJsonName[index]}.json`, item);
         }
         else {
-            fs.outputJsonSync(`${finalOutPath}/${config.prefixJsonName}_${index + 1}.json`, item);
+            pathName = `${finalOutPath}/${config.prefixJsonName}_${index + 1}.json`;
         }
+
+        fs.outputJsonSync(pathName, item);
+        finalPathNameArr.push(pathName);
     });
+    log('json数据生成成功', 'success');
 
-    successLog('json文件生成成功');
+
+    // finalPathNameArr.forEach(item => {
+    //     log(`json数据地址为 ${item}`, 'info');
+    // });
 }
-
 
 // 获取excel模板文件
 function getTemplate(option) {
@@ -104,9 +115,9 @@ function getTemplate(option) {
         else {
             fs.copySync(path.resolve(cliPath, `../${config.templateName}`), `${currentProjectPath}/${option}`);
         }
-        successLog('模板excel获取成功');
+        log('模板excel获取成功', 'success');
     } catch (err) {
-        console.log(err);
+        log(err, 'error');
     }
 }
 

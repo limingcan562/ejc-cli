@@ -5,15 +5,16 @@ const
 program = new Command(),
 pkg = require('../package.json'),
 {errorLog} = require('../src/log/index'),
-{descText, infoText} = require('../src/text/index'),
+{descText, infoText, errorText} = require('../src/text/index'),
 {convertToJson, getTemplate} = require('../src/index'),
-{isPath} = require('../src/tool/index');
+{isPath} = require('../src/tool/index'),
+log = require('../src/log/index');
 
 // 基础配置
 program
 .name(pkg.name)
 // .usage("[global options] command")
-.description(`${descText('=> 让可视化的excel表格，更好地管理你的json数据')}`)
+.description(`${descText('=> 用可视化的excel表格，更好地管理你的json数据')}`)
 .version(pkg.version, '-v', infoText('查看当前版本'))
 .helpOption('-h, --help', infoText('查看帮助'));
 
@@ -26,23 +27,23 @@ program
 .option('-k, --keys [string]', infoText('excel表格每一行对应的keys'))
 .option('-s, --start-row [number]', infoText('从excel表格第几行开始读取数据'))
 .action(function(options) {
-    // console.log(options);
     try {
         if (options.input === true || !options.input) {
-            errorLog('excel表格所在路径不能为空');
+            throw 'excel表格所在路径不能为空';
         }
         else if (!isPath(options.input)) {
-            errorLog('excel表格所在路径格式有误');
+            throw 'excel表格所在路径格式有误';
         }
         else if (options.output && !isPath(options.output)) {
-            errorLog('json数据保存路径格式有误');
+            throw 'json数据保存路径格式有误';
+            
         }
         // 开始生成
         else {
             convertToJson(options);
         }
     } catch (error) {
-        errorLog(error);
+        log(error, 'fail');
     }
 });
 
