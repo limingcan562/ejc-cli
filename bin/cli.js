@@ -24,7 +24,7 @@ program
 program
 .option('-i, --input [path]', Text.infoText('The excel table to be read'))
 .option('-o, --output [path]', Text.infoText('Path to the output json file'))
-.option('-j, --json-name [string]', Text.infoText('Name of the output json file'))
+.option('-n, --json-name [string]', Text.infoText('Name of the output json file'))
 .option('-k, --keys [string]', Text.infoText('The key value corresponding to each row of the excel table'))
 .option('-s, --start-row [number]', Text.infoText('Read data from the row of excel table'))
 .action(function(options) {

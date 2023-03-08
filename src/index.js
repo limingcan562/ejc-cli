@@ -28,7 +28,7 @@ function convertToJson(options) {
     totalSheetNum = totalSheet.length,
     finalOutPath = userOut ? path.resolve('./', userOut) : Config.defaluOutPath,
     finalkeys = userKeys ? Tool.trim(userKeys).split(',') : Config.prefixKeyName,
-    finalJsonName = Tool.trim(userJsonName) ? userJsonName.split(',') : Config.prefixJsonName,
+    finalJsonName = Tool.trim(userJsonName) ? Tool.trim(userJsonName).split(',') : Config.prefixJsonName,
     finalJsonArr = [],
     table = new Table({
         head: [Text.infoText('Json file name'), Text.infoText('File location')],
@@ -87,7 +87,7 @@ function convertToJson(options) {
         // 用户设置了输出的json名
         if (userJsonName) {
             pathName = `${finalOutPath}`;
-            name = `${finalJsonName[index]}.json}`;
+            name = `${finalJsonName[index]}.json`;
         }
         else {
             pathName = `${finalOutPath}`;
