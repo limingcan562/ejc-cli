@@ -27,7 +27,7 @@ function convertToJson(options) {
     totalSheet = originalXlsxData.filter(item => item.data.length !== 0),
     totalSheetNum = totalSheet.length,
     finalOutPath = userOut ? path.resolve('./', userOut) : Config.defaluOutPath,
-    finalkeys = userKeys ? Tool.trim(keys).split(',') : Config.prefixKeyName,
+    finalkeys = userKeys ? Tool.trim(userKeys).split(',') : Config.prefixKeyName,
     finalJsonName = Tool.trim(userJsonName) ? userJsonName.split(',') : Config.prefixJsonName,
     finalJsonArr = [],
     table = new Table({
