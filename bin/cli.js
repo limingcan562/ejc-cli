@@ -4,61 +4,60 @@ const
 {Command} = require('commander'),
 program = new Command(),
 pkg = require('../package.json'),
-{errorLog} = require('../src/log/index'),
-{descText, infoText} = require('../src/text/index'),
-{convertToJson, getTemplate} = require('../src/index'),
-{isPath} = require('../src/tool/index'),
-log = require('../src/log/index');
+Text = require('../src/text/index'),
+Core = require('../src/index'),
+Tool = require('../src/tool/index'),
+Log = require('../src/log/index');
 
 // 基础配置
 program
 .name(pkg.name)
 // .usage("[global options] command")
-.description(`${descText('=> 用可视化的excel表格，更好地管理你的json数据')}`)
-.version(pkg.version, '-v', infoText('查看当前版本'))
-.helpOption('-h, --help', infoText('查看帮助'));
+.description(`${Text.descText('=> 用可视化的excel表格，更好地管理你的json数据')}`)
+.version(pkg.version, '-v', Text.infoText('查看当前版本'))
+.helpOption('-h, --help', Text.infoText('查看帮助'));
 
 
 // 转换功能
 program
-.option('-i, --input [path]', infoText('excel表格所在路径'))
-.option('-o, --output [path]', infoText('json数据保存路径'))
-.option('-j, --json-name [string]', infoText('输出的json名字'))
-.option('-k, --keys [string]', infoText('excel表格每一行对应的keys'))
-.option('-s, --start-row [number]', infoText('从excel表格第几行开始读取数据'))
+.option('-i, --input [path]', Text.infoText('excel表格所在路径'))
+.option('-o, --output [path]', Text.infoText('json数据保存路径'))
+.option('-j, --json-name [string]', Text.infoText('输出的json名字'))
+.option('-k, --keys [string]', Text.infoText('excel表格每一行对应的keys'))
+.option('-s, --start-row [number]', Text.infoText('从excel表格第几行开始读取数据'))
 .action(function(options) {
     try {
         if (options.input === true || !options.input) {
             throw 'excel表格所在路径不能为空';
         }
-        else if (!isPath(options.input)) {
+        else if (!Tool.isPath(options.input)) {
             throw 'excel表格所在路径格式有误';
         }
-        else if (options.output && !isPath(options.output)) {
+        else if (options.output && !Tool.isPath(options.output)) {
             throw 'json数据保存路径格式有误';
             
         }
         // 开始生成
         else {
-            convertToJson(options);
+            Core.convertToJson(options);
         }
     } catch (error) {
-        log(error, 'fail');
+        Log(error, 'fail');
     }
 });
 
 // 下载模板excel文件
 program
 .command('gt')
-.description(infoText('获取excel模板文件'))
+.description(Text.infoText('获取excel模板文件'))
 .argument('[path]', 'excel模板文件输出路径')
 .action(function(option) {
     // console.log(option);
-    if (option && !isPath(option)) {
-        errorLog('输出路径格式有误')
+    if (option && !Tool.isPath(option)) {
+        Log('输出路径格式有误', 'fail');
     }
     else {
-        getTemplate(option);
+        Core.getTemplate(option);
     }
 });
 

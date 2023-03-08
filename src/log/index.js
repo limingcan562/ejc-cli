@@ -2,7 +2,7 @@ const chalk = require('chalk');
 const ora = require('ora');
 const spinner = ora();
 
-const log = (text, type) => {
+const Log = (text, type) => {
     switch (type) {
         case 'start':
             spinner.start(text);
@@ -35,4 +35,4 @@ const log = (text, type) => {
 //     errorLog,
 //     infoLog
 // }
-module.exports = log;
+module.exports = Log;

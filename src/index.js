@@ -2,14 +2,14 @@ const
 xlsx = require('node-xlsx'),
 fs = require('fs-extra'),
 path = require('path'),
-config = require('./config/index'),
-{trim} = require('./tool/index'),
-{infoText} = require('./text/index'),
+Config = require('./config/index'),
+Tool = require('./tool/index'),
+Text = require('./text/index'),
 log = require('./log/index'),
 Table = require('cli-table');
 
 // 将excel转换成json
-function convertToJson(options, spinner) {
+function convertToJson(options) {
     /**
      * @options 用户终端输入的指令
      * @originalXlsxData 最原始的excel表格数据
@@ -26,12 +26,12 @@ function convertToJson(options, spinner) {
     originalXlsxData = xlsx.parse(`${path.resolve('.', userInput)}`),
     totalSheet = originalXlsxData.filter(item => item.data.length !== 0),
     totalSheetNum = totalSheet.length,
-    finalOutPath = userOut ? path.resolve('./', userOut) : config.defaluOutPath,
-    finalkeys = userKeys ? trim(keys).split(',') : config.prefixKeyName,
-    finalJsonName = trim(userJsonName) ? userJsonName.split(',') : config.prefixJsonName,
+    finalOutPath = userOut ? path.resolve('./', userOut) : Config.defaluOutPath,
+    finalkeys = userKeys ? Tool.trim(keys).split(',') : Config.prefixKeyName,
+    finalJsonName = Tool.trim(userJsonName) ? userJsonName.split(',') : Config.prefixJsonName,
     finalJsonArr = [],
     table = new Table({
-        head: [infoText('Json file name'), infoText('File location')],
+        head: [Text.infoText('Json file name'), Text.infoText('File location')],
         // colWidths: [50, 100]
     });
 
@@ -91,7 +91,7 @@ function convertToJson(options, spinner) {
         }
         else {
             pathName = `${finalOutPath}`;
-            name = `${config.prefixJsonName}_${index + 1}.json`;
+            name = `${Config.prefixJsonName}_${index + 1}.json`;
         }
 
         fs.outputJsonSync(`${pathName}/${name}`, item);
@@ -110,14 +110,14 @@ function getTemplate(option) {
     cliPath = __dirname, // ejc-cli 命令执行所在的文件
     originalTemplate = fs.readdirSync(path.resolve(cliPath, `../template/`))[0],
     table = new Table({ 
-        head: [infoText('excel file name'), infoText('File location')]
+        head: [Text.infoText('excel file name'), Text.infoText('File location')]
     });
 
     try {
         let pathName = '';
 
         if (!option) {
-            pathName =  path.resolve('./', config.defaultOutTemplateName);
+            pathName =  path.resolve('./', Config.defaultOutTemplateName);
         }
         else {
             pathName = path.resolve('./', option);
