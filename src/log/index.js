@@ -13,7 +13,7 @@ const Log = (text, type) => {
             console.log(logSymbols.warning, chalk.yellow(`${text}`));
             break;
         case 'info':
-            console.log(logSymbols.info, chalk.hex('#A37FFF')(`${text}`));
+            console.log(logSymbols.info, chalk.hex('#A37FFF').dim(`${text}`));
             break;
     }
 }

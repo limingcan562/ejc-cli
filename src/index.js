@@ -35,7 +35,7 @@ function convertToJson(options) {
         // colWidths: [50, 100]
     });
 
-    Log('json data being generated...', 'info');
+    Log('Json data being generated...', 'info');
 
     // 最外层
     for (let index = 0; index < totalSheet.length; index++) {
@@ -106,8 +106,7 @@ function convertToJson(options) {
 
 
     // 打印最后的json文件地址
-    Log('json data generated successfully', 'success');
-
+    Log('Json data generated successfully.', 'success');
     console.log(table.toString());
 }
 
