@@ -5,7 +5,7 @@ path = require('path'),
 Config = require('./config/index'),
 Tool = require('./tool/index'),
 Text = require('./text/index'),
-log = require('./log/index'),
+Log = require('./log/index'),
 Table = require('cli-table');
 
 // 将excel转换成json
@@ -35,7 +35,7 @@ function convertToJson(options) {
         // colWidths: [50, 100]
     });
 
-    log('json数据生成中...', 'start');
+    Log('json data being generated...', 'start');
 
     // 最外层
     for (let index = 0; index < totalSheet.length; index++) {
@@ -100,7 +100,8 @@ function convertToJson(options) {
 
 
     // 打印最后的json文件地址
-    log('json data generated successfully', 'success');
+    Log('json data generated successfully', 'success');
+    
     console.log(table.toString());
 }
 
@@ -125,7 +126,7 @@ function getTemplate(option) {
 
         fs.copySync(path.resolve(cliPath, `../template/`), `${path.resolve('./', pathName)}`);
 
-        log('excel template file obtained successfully', 'success');
+        Log('excel template file obtained successfully', 'success');
         table.push([originalTemplate, pathName]);
         console.log(table.toString());
 
