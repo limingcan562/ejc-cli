@@ -27,8 +27,8 @@ function convertToJson(options) {
     totalSheet = originalXlsxData.filter(item => item.data.length !== 0),
     totalSheetNum = totalSheet.length,
     finalOutPath = userOut ? path.resolve('./', userOut) : Config.defaluOutPath,
-    finalkeys = userKeys ? Tool.trim(userKeys).split(',') : Config.prefixKeyName,
-    finalJsonName = Tool.trim(userJsonName) ? Tool.trim(userJsonName).split(',') : Config.prefixJsonName,
+    finalkeys = Tool.getFinalKeys(userKeys),
+    finalJsonName = Tool.getFinalKeys(userJsonName),
     finalJsonArr = [],
     table = new Table({
         head: [Text.infoText('Json file name'), Text.infoText('File location')],
@@ -36,6 +36,7 @@ function convertToJson(options) {
     });
 
     Log('json data being generated...', 'start');
+    console.log();
 
     // 最外层
     for (let index = 0; index < totalSheet.length; index++) {
@@ -46,26 +47,23 @@ function convertToJson(options) {
         singleJsonObj = {}, // 每个表格作为一个数据（对象形式）
         totalRowJsonArr = []; // 用来存放excel每行组装成的对象数据（singleRowObj）
 
+        // console.log(totalRowData, 1);
 
         // 把每行数组组装成对象形式
         for (let index2 = 0; index2 < totalRowData.length; index2++) {
             const 
             singleRowRenderArr = totalRowData[index2], // 每一行的值（形式为数组）
-            singleRowObj = {}; // 用对象形式存放每一行的值
+            singleRowObj = {}, // 用对象形式存放每一行的值
+            MAXLENGTH = userKeys ? finalkeys.length : singleRowRenderArr.length; // 以用户输入的-k 长度做渲染
 
             // 每行里的每个具体数据
-            for (let index3 = 0; index3 < singleRowRenderArr.length; index3++) {
+            for (let index3 = 0; index3 < MAXLENGTH; index3++) {
                 const value = singleRowRenderArr[index3];
+                const keyValue = userKeys ? finalkeys[index3] : `${finalkeys}_${index3 + 1}`;
 
-                // 用户设置了keys
-                if (userKeys) {
-                    singleRowObj[finalkeys[index3]] = value;
-                }
-                // 用户没设置，用自己prefixKeyName
-                else {
-                    singleRowObj[`${finalkeys}_${index3 + 1}`] = value;
-                }
+                singleRowObj[keyValue] = value;
             }
+            
             totalRowJsonArr.push(singleRowObj);
         }
 
@@ -81,27 +79,24 @@ function convertToJson(options) {
     // 输出json文件
     finalJsonArr.forEach((item, index) => {
         let 
-        pathName = '',
-        name = '';
+        pathName = `${finalOutPath}`,
+        fileName = '';
 
-        // 用户设置了输出的json名
-        if (userJsonName) {
-            pathName = `${finalOutPath}`;
-            name = `${finalJsonName[index]}.json`;
+        if (finalJsonName[index]) {
+            fileName = `${finalJsonName[index]}.json`;
         }
         else {
-            pathName = `${finalOutPath}`;
-            name = `${Config.prefixJsonName}_${index + 1}.json`;
+            fileName = `${Config.defaultPrefixJsonName}_${index + 1}.json`;
         }
 
-        fs.outputJsonSync(`${pathName}/${name}`, item);
-        table.push([name, pathName]);
+        fs.outputJsonSync(`${pathName}/${fileName}`, item);
+        table.push([fileName, pathName]);
     });
 
 
     // 打印最后的json文件地址
     Log('json data generated successfully', 'success');
-    
+
     console.log(table.toString());
 }
 

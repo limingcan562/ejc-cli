@@ -8,8 +8,8 @@ module.exports = {
     defaluOutPath: path.resolve('.', './xlsx_json/'),
 
     // 默认输出的json名字前缀
-    prefixJsonName: 'data',
+    defaultPrefixJsonName: 'data',
     
     // 默认excel每行字段对应的key前缀
-    prefixKeyName: 'key',
+    defaultPrefixKeyName: 'key',
 }
