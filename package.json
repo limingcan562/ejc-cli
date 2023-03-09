@@ -30,7 +30,7 @@
     "cli-table": "^0.3.11",
     "commander": "^10.0.0",
     "fs-extra": "^11.1.0",
-    "node-xlsx": "^0.21.0",
-    "ora": "^4.0.5"
+    "log-symbols": "^4.1.0",
+    "node-xlsx": "^0.21.0"
   }
 }

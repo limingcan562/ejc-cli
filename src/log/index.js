@@ -1,23 +1,19 @@
 const chalk = require('chalk');
-const ora = require('ora');
-const spinner = ora();
+const logSymbols = require('log-symbols');
 
 const Log = (text, type) => {
     switch (type) {
-        case 'start':
-            spinner.start(text);
-            break;
         case 'success':
-            spinner.succeed(chalk.green(`${text}`));
+            console.log(logSymbols.success, chalk.green(`${text}`));
             break;
         case 'fail':
-            spinner.fail(chalk.red(`${text}`));
+            console.log(logSymbols.error, chalk.red(`${text}`));
             break;
         case 'warn':
-            spinner.warn(chalk.yellow(`${text}`));
+            console.log(logSymbols.warning, chalk.yellow(`${text}`));
             break;
         case 'info':
-            spinner.info(chalk.cyan(`${text}`));
+            console.log(logSymbols.info, chalk.hex('#A37FFF')(`${text}`));
             break;
     }
 }

@@ -97,7 +97,7 @@ function convertToJson(options) {
         }
         else {
             fileName = `${Config.defaultPrefixJsonName}_${index + 1}.json`;
-            console.log(fileName);
+            // console.log(fileName);
         }
 
         fs.outputJsonSync(`${pathName}/${fileName}`, item);
