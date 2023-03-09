@@ -6,7 +6,8 @@ Config = require('./config/index'),
 Tool = require('./tool/index'),
 Text = require('./text/index'),
 Log = require('./log/index'),
-Table = require('cli-table');
+Table = require('cli-table'),
+chalk = require('chalk');
 
 // 将excel转换成json
 function convertToJson(options) {
@@ -19,10 +20,11 @@ function convertToJson(options) {
      * @finalkeys excel每行对应的key
      * @finalJsonName 输出的json文件名
      * @finalJsonArr 用来存放生成的每条json数据的容器
+     * @table 用表格形式来描述输出文件的信息
      */
 
     const 
-    {input: userInput, output: userOut, keys: userKeys, startRow, jsonName: userJsonName} = options,
+    {input: userInput, output: userOut, keys: userKeys, startRow = Config.defaultStartRow, jsonName: userJsonName} = options,
     originalXlsxData = xlsx.parse(`${path.resolve('./', userInput)}`),
     totalSheet = originalXlsxData.filter(item => item.data.length !== 0),
     totalSheetNum = totalSheet.length,
@@ -34,6 +36,11 @@ function convertToJson(options) {
         head: [Text.infoText('Json file name'), Text.infoText('File location')],
         // colWidths: [50, 100]
     });
+
+    console.log();
+    console.log(Text.underlineText('Please confirm that you read the data from the row of excel.'));
+    console.log(Text.underlineText(`The current number of rows to read is ${Text.descText(startRow)}.`));
+    console.log();
 
     Log('Json data being generated...', 'info');
 
@@ -52,7 +59,7 @@ function convertToJson(options) {
         if (userKeys && finalkeys.length < maxRowLegth) {
             console.log();
             Log(`The maximum number of rows in ${Text.infoText('Sheet ' + (index + 1))} is ${Text.infoText(maxRowLegth)}.\nThe number of key values you set is ${Text.infoText(finalkeys.length)}.`, 'warn');
-            console.log(Text.errorText(`The json data will be rendered according to the number of key values you set.`));
+            console.log(chalk.hex('#f5e724')(`The json data will be rendered according to the number of key values you set.`));
             console.log();
         }
 

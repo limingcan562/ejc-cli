@@ -26,7 +26,7 @@ program
 .option('-o, --output [path]', Text.infoText('Path to the output json file'))
 .option('-n, --json-name [string]', Text.infoText('Name of the output json file'))
 .option('-k, --keys [string]', Text.infoText('The key value corresponding to each row of each sheet'))
-.option('-s, --start-row [number]', Text.infoText('Read data from the row of excel table'))
+.option('-s, --start-row [number]', Text.infoText('Read data from what row of excel'))
 .action(function(options) {
     try {
         // 验证-i
@@ -40,9 +40,9 @@ program
             throw 'excel file does not exist';
         }
         // 验证-s
-        else if (!options.startRow) {
-            throw '"-s" or "--start-row" is required';
-        }
+        // else if (!options.startRow) {
+        //     throw '"-s" or "--start-row" is required';
+        // }
         else if (options.startRow && !Tool.getValueType(options.startRow).includes('str')) {
             throw 'The value of "-s" or "--start-row" needs to be a string or an integer';
         }
