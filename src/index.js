@@ -23,29 +23,38 @@ function convertToJson(options) {
 
     const 
     {input: userInput, output: userOut, keys: userKeys, startRow, jsonName: userJsonName} = options,
-    originalXlsxData = xlsx.parse(`${path.resolve('.', userInput)}`),
+    originalXlsxData = xlsx.parse(`${path.resolve('./', userInput)}`),
     totalSheet = originalXlsxData.filter(item => item.data.length !== 0),
     totalSheetNum = totalSheet.length,
     finalOutPath = userOut ? path.resolve('./', userOut) : Config.defaluOutPath,
     finalkeys = Tool.getFinalKeys(userKeys),
-    finalJsonName = Tool.getFinalKeys(userJsonName),
+    finalJsonName = Tool.getFinalJsonName(userJsonName),
     finalJsonArr = [],
     table = new Table({
         head: [Text.infoText('Json file name'), Text.infoText('File location')],
         // colWidths: [50, 100]
     });
 
-    Log('json data being generated...', 'start');
-    console.log();
+    Log('json data being generated...', 'info');
 
     // 最外层
     for (let index = 0; index < totalSheet.length; index++) {
         const 
         everySheet = totalSheet[index], // 每个表格
         {name, data} = everySheet,
-        totalRowData = data.splice(startRow - 1).filter(item => item.length !== 0), // 要开始读取数据做渲染的地方（所有行的数据）
+        totalRowData = data.splice(parseInt(startRow) - 1).filter(item => item.length !== 0), // 要开始读取数据做渲染的地方（所有行的数据）
+        everyRowLengthArr = totalRowData.map(item => item.length),
+        maxRowLegth = Math.max(...everyRowLengthArr),
         singleJsonObj = {}, // 每个表格作为一个数据（对象形式）
         totalRowJsonArr = []; // 用来存放excel每行组装成的对象数据（singleRowObj）
+
+        // 检测输入的key长度，与表格的长度是不是相等
+        if (userKeys && finalkeys.length < maxRowLegth) {
+            console.log();
+            Log(`The maximum number of rows in ${Text.infoText('Sheet ' + (index + 1))} is ${Text.infoText(maxRowLegth)}.\nThe number of key values you set is ${Text.infoText(finalkeys.length)}.`, 'warn');
+            console.log(Text.errorText(`The json data will be rendered according to the number of key values you set.`));
+            console.log();
+        }
 
         // console.log(totalRowData, 1);
 
@@ -54,11 +63,12 @@ function convertToJson(options) {
             const 
             singleRowRenderArr = totalRowData[index2], // 每一行的值（形式为数组）
             singleRowObj = {}, // 用对象形式存放每一行的值
-            MAXLENGTH = userKeys ? finalkeys.length : singleRowRenderArr.length; // 以用户输入的-k 长度做渲染
+            MAXLENGTH = (userKeys && finalkeys.length <= maxRowLegth) ? finalkeys.length : singleRowRenderArr.length, // 以用户输入的-k 长度做渲染
+            defalutValue = '';
 
             // 每行里的每个具体数据
             for (let index3 = 0; index3 < MAXLENGTH; index3++) {
-                const value = singleRowRenderArr[index3];
+                const value = singleRowRenderArr[index3] || defalutValue;
                 const keyValue = userKeys ? finalkeys[index3] : `${finalkeys}_${index3 + 1}`;
 
                 singleRowObj[keyValue] = value;
@@ -82,11 +92,12 @@ function convertToJson(options) {
         pathName = `${finalOutPath}`,
         fileName = '';
 
-        if (finalJsonName[index]) {
+        if (userJsonName && finalJsonName[index]) {
             fileName = `${finalJsonName[index]}.json`;
         }
         else {
             fileName = `${Config.defaultPrefixJsonName}_${index + 1}.json`;
+            console.log(fileName);
         }
 
         fs.outputJsonSync(`${pathName}/${fileName}`, item);
@@ -121,7 +132,7 @@ function getTemplate(option) {
 
         fs.copySync(path.resolve(cliPath, `../template/`), `${path.resolve('./', pathName)}`);
 
-        Log('excel template file obtained successfully', 'success');
+        Log('Excel template file obtained successfully', 'success');
         table.push([originalTemplate, pathName]);
         console.log(table.toString());
 
