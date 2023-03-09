@@ -22,12 +22,13 @@ program
 
 // 转换功能
 program
-.option('-i, --input [path]', Text.infoText('The excel table to be read'))
+.option('-i, --input [path]', Text.infoText('Path of excel to be converted'))
 .option('-o, --output [path]', Text.infoText('Path to the output json file'))
 .option('-n, --json-name [string]', Text.infoText('Name of the output json file'))
 .option('-k, --keys [string]', Text.infoText('The key value corresponding to each row of each sheet'))
 .option('-s, --start-row [number]', Text.infoText('Read data from what row of excel'))
 .action(function(options) {
+    // console.log(options);
     try {
         // 验证-i
         if (options.input === true || !options.input) {
@@ -51,8 +52,8 @@ program
             throw 'The output path of the json file is incorrect';
         }
         // 验证-k
-        else if (options.keys && Tool.getValueType(options.keys).includes('boo')) {
-            throw 'The value of "-s" or "--start-row" needs to be a string';
+        else if (options.keys && !Tool.getValueType(options.keys).includes('str')) {
+            throw 'The value of "-k" or "--keys" needs to be a string';
         }
         // 验证-n
         else if (options.jsonName && Tool.getValueType(options.jsonName).includes('boo')) {

@@ -38,8 +38,8 @@ function convertToJson(options) {
     });
 
     console.log();
-    console.log(Text.underlineText('Please confirm that you read the data from the row of excel.'));
-    console.log(Text.underlineText(`The current number of rows to read is ${Text.descText(startRow)}.`));
+    Log('Please confirm that you read the data from the row of excel.', 'info');
+    console.log(chalk.hex('#A37FFF')(`The current number of rows to read is`), `${Text.infoText(startRow)}.`);
     console.log();
 
     Log('Json data being generated...', 'info');
