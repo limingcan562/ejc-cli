@@ -4,7 +4,7 @@
     <h1>ejc-cli<h1>
 </div> -->
 
-<img src="./media/logo.svg">
+<img src="./media/logo.svg?v=1" width="100%">
 
 <!-- ## **`ejc-cli`** -->
 让可视化的excel表格，更好的管理你的json数据
