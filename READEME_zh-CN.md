@@ -25,26 +25,6 @@ excel表格比起`json`文件，更加可视化，并且可以更加条理，清
 
 **这样，excel还能在不同的工作人员中传播，不像`json`文件只能局限于开发人员**
 
-
-## 选项及命令
-````npm
-Usage: ejc-cli [options] [command]
-
-=> Manage your json data better with visual excel sheets
-
-Options:
-  -v                        View current version
-  -i, --input [path]        Path of excel to be converted
-  -o, --output [path]       Path to the output json file
-  -n, --json-name [string]  Name of the output json file
-  -k, --keys [string]       The key value corresponding to each row of each sheet
-  -s, --start-row [number]  Read data from what row of excel
-  -h, --help                View help
-
-Commands:
-  gt [path]                 Get the excel template file
-````
-
 ## 使用步骤
 1. 安装工具
     ````npm
@@ -65,13 +45,33 @@ Commands:
     ejc-cli -i './xlsx_template/template.xlsx' -k 'id, author, desc, director, link' -n 'movieData, musicData'
     ````
 
+## 选项及命令
+````npm
+Usage: ejc-cli [options] [command]
+
+=> Manage your json data better with visual excel sheets
+
+Options:
+  -v                        View current version
+  -i, --input [path]        Path of excel to be converted
+  -o, --output [path]       Path to the output json file
+  -n, --json-name [string]  Name of the output json file
+  -k, --keys [string]       The key value corresponding to each row of each sheet
+  -s, --start-row [number]  Read data from what row of excel
+  -h, --help                View help
+
+Commands:
+  gt [path]                 Get the excel template file
+````
+
+
 ## 选项
 | 参数 | 是否必须  | 说明 | 默认值
 | ---| --- | --- | --- |
 | `-v` | 否 | 查看当前版本 
 | `-i` | 是 | 要转换的excel表格所在路径
 | `-o` | 否 | `json`文件输出路径 | 当前目录的`xlsx_json`文件夹下
-| `-n` | 否 | 输出的`json`文件名字 | 默认以excel里面的sheet数量索引命名
+| `-n` | 否 | 输出的`json`文件名字 | 默认以excel里面的sheet数量索引命名（`data_1.json, data_2.json`）
 | `-k` | 否 |`excel`表格中每行对应要设置的`key`值名称 | 默认会以当前每行的索引作为`key`（`{key_1: ''}, {key_2: ''}`）
 | `-s` | 否 | 从excel表格中哪一行开始读取数据  | `4`
 | `-h` | 否 | 查看帮助  |
@@ -80,3 +80,9 @@ Commands:
 | 语句 | 参数 | 说明
 | ---|  --- |  --- |
 | `gt` | `path` | `path`为获取的模板excel文件保存目录。当`path`为空时，获取的模板excel文件默认保存在当前目录的`xlsx_template`文件夹下
+
+## 讲解
+![](./media/explanation.png)
+
+## 其他
+如果你想`diy`表格的样式，请保证结构与`template.xlsx`相似，下面是一个例子：
