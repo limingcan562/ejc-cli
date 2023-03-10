@@ -4,7 +4,7 @@
     <h1>ejc-cli<h1>
 </div> -->
 
-<img src="./media/logo.svg?v=1" width="100%">
+<img src="./media/logo.svg?v=1" width="70%">
 
 <!-- ## **`ejc-cli`** -->
 让可视化的excel表格，更好的管理你的json数据
@@ -64,7 +64,6 @@ Commands:
   gt [path]                 Get the excel template file
 ````
 
-
 ### 选项
 | 参数 | 是否必须  | 说明 | 默认值
 | ---| --- | --- | --- |
@@ -82,7 +81,14 @@ Commands:
 | `gt` | `path` | `path`为获取的模板excel文件保存目录。当`path`为空时，获取的模板excel文件默认保存在当前目录的`xlsx_template`文件夹下
 
 ## 讲解
-![](./media/explanation.png)
+我们可以看看获取到的模板excel文件（`template.xlsx`）结构：  
 
-## 其他
-如果你想`diy`表格的样式，请保证结构与`template.xlsx`相似，,下面是一个例子：
+![structure](./media/structure.png)
+
+表格的总体结构一般分三块（`top`，`middle`，`bottom`）：
+- 第一块，我们称它为（`T`），指整个表格的大标题
+- 第二块，我们称它为（`M`），对表格每列信息的概述，也是用来设置对应的`key`值的（`-k 'id, author, desc, director, link'`）
+- 第三块，我们称它为（`B`），它所在的行数，就是程序要开始读取数据的行数（`-s 4`）
+
+## 如何使用自己的excel表格
+虽然我们强烈建议你用使用我们模板excel文件（`template.xlsx`）来管理数据，但是这个文件也许样式不一定能满足你。所以如果你想`diy`表格的样式，**请保证`M`与`B`模块结构与上图的表格相似。**
