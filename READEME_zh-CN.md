@@ -42,7 +42,7 @@ excel表格比起`json`文件，更加可视化，并且可以更加条理，清
     这样我们就能获取到一个excel模板文件了，然后把里面的数据换成你想要的就好了，对就这么简单。
 3. 输出我们的`json`文件  
    ````npm
-    ejc-cli -i './xlsx_template/template.xlsx' -k 'id, author, desc, director, link' -n 'movieData, musicData'
+    ejc-cli -i './xlsx_template/template.xlsx' -k 'num, name, desc, director, link' -n 'movieData, novelData'
     ````
 
 ## 注意事项
@@ -51,7 +51,7 @@ excel表格比起`json`文件，更加可视化，并且可以更加条理，清
 - 当设置`-k`值的个数小于excel表格的列数时，会以`-k`值的个数做渲染  
   你可以试试执行以下命令，看看输出的数据有什么区别
   ````npm
-  ejc-cli -i './xlsx_template/template.xlsx' -k 'id, author' -n 'movieData, musicData'
+  ejc-cli -i './xlsx_template/template.xlsx' -k 'num, name' -n 'movieData, novelData'
   ````
   这时输出的`json`数据只有`id`，`author`两个值
 
