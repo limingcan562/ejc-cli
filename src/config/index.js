@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
     // 默认开始读取数据行数
-    defaultStartRow: 4,
+    defaultStartRow: 3,
 
     // 默认输出excel模板文件夹名字
     defaultOutTemplateName: 'xlsx_template',

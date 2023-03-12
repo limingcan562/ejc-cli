@@ -37,13 +37,23 @@ excel表格比起`json`文件，更加可视化，并且可以更加条理，清
     ````
     或者指定保存的目录：
     ````npm
-    ejc-cli gt './excel/'
+    ejc-cli gt './xlsx_template/'
     ````
     这样我们就能获取到一个excel模板文件了，然后把里面的数据换成你想要的就好了，对就这么简单。
 3. 输出我们的`json`文件  
    ````npm
     ejc-cli -i './xlsx_template/template.xlsx' -k 'id, author, desc, director, link' -n 'movieData, musicData'
     ````
+
+## 注意事项
+在使用过程中，这里有以下注意事项：
+- 生成`json`数据时，请确保`-s`的值是否正确。`-s`代表的是，数据从excel第几行开始读取，默认是第3行
+- 当设置`-k`值的个数小于excel表格的列数时，会以`-k`值的个数做渲染  
+  你可以试试执行以下命令，看看输出的数据有什么区别
+  ````npm
+  ejc-cli -i './xlsx_template/template.xlsx' -k 'id, author' -n 'movieData, musicData'
+  ````
+  这时输出的`json`数据只有`id`，`author`两个值
 
 ## 选项及命令
 ````npm
@@ -72,7 +82,7 @@ Commands:
 | `-o` | 否 | `json`文件输出路径 | 当前目录的`xlsx_json`文件夹下
 | `-n` | 否 | 输出的`json`文件名字 | 默认以excel里面的sheet数量索引命名（`data_1.json, data_2.json`）
 | `-k` | 否 |`excel`表格中每行对应要设置的`key`值名称 | 默认会以当前每行的索引作为`key`（`{key_1: ''}, {key_2: ''}`）
-| `-s` | 否 | 从excel表格中哪一行开始读取数据  | `4`
+| `-s` | 否 | 从excel表格中哪一行开始读取数据  | `3`
 | `-h` | 否 | 查看帮助  |
 
 ### 命令
@@ -83,7 +93,7 @@ Commands:
 ## 讲解
 我们可以看看获取到的模板excel文件（`template.xlsx`）结构：  
 
-![structure](./media/structure.png)
+![structure_cn](./media/structure_cn.png)
 
 表格的总体结构一般分三块（`top`，`middle`，`bottom`）：
 - 第一块，我们称它为（`T`），指整个表格的大标题
@@ -91,4 +101,6 @@ Commands:
 - 第三块，我们称它为（`B`），它所在的行数，就是程序要开始读取数据的行数（`-s 4`）
 
 ## 如何使用自己的excel表格
-虽然我们强烈建议你用使用我们模板excel文件（`template.xlsx`）来管理数据，但是这个文件也许样式不一定能满足你。所以如果你想`diy`表格的样式，**请保证`M`与`B`模块结构与上图的表格相似。**
+虽然我们强烈建议你用使用我们模板excel文件（`template.xlsx`）来管理数据，但是这个文件也许样式不一定能满足你。  
+
+所以如果你想`diy`表格的样式，根据“讲解”模块的分析，**请保证`M`与`B`模块结构与上图的表格相似。**
