@@ -24,12 +24,13 @@ function convertToJson(options) {
      */
 
     const 
-    {input: userInput, output: userOut, keys: userKeys, startRow = Config.defaultStartRow, jsonName: userJsonName} = options,
+    {input: userInput, output: userOut, keys: userKeys, startRow, jsonName: userJsonName} = options,
     originalXlsxData = xlsx.parse(`${path.resolve('./', userInput)}`),
     totalSheet = originalXlsxData.filter(item => item.data.length !== 0),
     totalSheetNum = totalSheet.length,
     finalOutPath = userOut ? path.resolve('./', userOut) : Config.defaluOutPath,
     finalkeys = Tool.getFinalKeys(userKeys, totalSheetNum),
+    finalStartRow = Tool.getFinalStartRow(startRow, totalSheetNum),
     finalJsonName = Tool.getFinalJsonName(userJsonName),
     finalJsonArr = [],
     table = new Table({
@@ -49,7 +50,7 @@ function convertToJson(options) {
         const 
         everySheetArr = totalSheet[index], // 每个表格
         {name, data} = everySheetArr,
-        totalRowData = data.splice(parseInt(startRow) - 1).filter(item => item.length !== 0), // 要开始读取数据做渲染的地方（所有行的数据）
+        totalRowData = data.splice(finalStartRow[index] - 1).filter(item => item.length !== 0), // 要开始读取数据做渲染的地方（所有行的数据）
         everyRowLengthArr = totalRowData.map(item => item.length),
         maxRowLength = Math.max(...everyRowLengthArr),
         flag = userKeys && finalkeys[index].length !== 0,
@@ -59,8 +60,8 @@ function convertToJson(options) {
         // 检测输入的key长度，与表格的长度是不是相等
         if (flag && finalkeys[index].length < maxRowLength) {
             console.log();
-            Log(`The maximum number of rows in ${Text.infoText('Sheet ' + (index + 1))} is ${Text.infoText(maxRowLength)}.\nThe number of key values you set is ${Text.infoText(finalkeys[index].length)}.`, 'warn');
-            console.log(chalk.hex('#f5e724')(`The json data will be rendered according to the number of key values you set.`));
+            Log(`The maximum number of columns in ${Text.infoText('Sheet ' + (index + 1))} is ${Text.infoText(maxRowLength)}.\nThe number of key values you set is ${Text.infoText(finalkeys[index].length)}.`, 'warn');
+            console.log(chalk.hex('#f5e724')(`The number of entries of json data will be rendered according to the number of key values you set.`));
             console.log();
         }
 

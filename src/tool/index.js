@@ -17,19 +17,21 @@ const getValueType = val => {
     return value2;
 }
 
-// 获取 用户输入的-k 
+// 获取 用于最后每个表格渲染的jsonk key值 
 const getFinalKeys = (userKeys, totalSheetNum) => {
     let finalKeysArr = [];
 
+    if (!userKeys) return;
+
     for (let index = 0; index < totalSheetNum; index++) {
-        if (!userKeys.includes('|')) {
+        if (!userKeys.includes(Config.delimiter)) {
             let everyKeys = trim(userKeys).split(',');
             everyKeys = everyKeys.filter(i => i);
             finalKeysArr[index] = everyKeys;
         }
         else {
-            let everyKeys = trim(userKeys).split('|')[index];
-            
+            let everyKeys = trim(userKeys).split(Config.delimiter)[index];
+
             if (everyKeys.length !== 0) {
                 everyKeys = everyKeys.split(',').filter(i => i);
                 finalKeysArr[index] = everyKeys;
@@ -39,9 +41,38 @@ const getFinalKeys = (userKeys, totalSheetNum) => {
             }
         }
     }
-
-
     return finalKeysArr;
+}
+
+// 获取 用于最后每个表格，开始读取数据的行数
+const getFinalStartRow = (userRow, totalSheetNum) => {
+    let finalStartRow = [];
+    let spliceLength = 1;
+
+    for (let index = 0; index < totalSheetNum; index++) {
+        if (!userRow) {
+            finalStartRow[index] = Config.defaultStartRow;
+        }
+        else if (!userRow.includes(Config.delimiter)) {
+            let everyStartRow = parseInt(trim(userRow));
+            finalStartRow[index] = everyStartRow;
+        }
+        else {
+            let everyStartRowStr = trim(userRow).split(Config.delimiter)[index];
+            let everyStartRowArr = everyStartRowStr.split(',').filter(i => i && parseInt(i));
+            let everyStartRow = everyStartRowArr.slice(0, spliceLength);
+            // console.log(everyStartRow, 2222);
+
+            if (everyStartRow.length !== 0) {
+                finalStartRow[index] = everyStartRow;
+            }
+            else if (everyStartRow.length === 0) {
+                finalStartRow[index] = [Config.defaultStartRow];
+            }
+        }
+    }
+    console.log(finalStartRow, 1);
+    return finalStartRow;
 }
 
 
@@ -65,5 +96,6 @@ module.exports = {
     isPath,
     getValueType,
     getFinalKeys,
-    getFinalJsonName
+    getFinalJsonName,
+    getFinalStartRow
 }
