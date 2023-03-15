@@ -18,17 +18,30 @@ const getValueType = val => {
 }
 
 // 获取 用户输入的-k 
-const getFinalKeys = userKeys => {
-    let keys = null;
-    if (userKeys) {
-        keys = trim(userKeys).split(',');
-        // 防止用户有以逗号结尾的
-        keys = keys.filter(item => item);
+const getFinalKeys = (userKeys, totalSheetNum) => {
+    let finalKeysArr = [];
+
+    for (let index = 0; index < totalSheetNum; index++) {
+        if (!userKeys.includes('|')) {
+            let everyKeys = trim(userKeys).split(',');
+            everyKeys = everyKeys.filter(i => i);
+            finalKeysArr[index] = everyKeys;
+        }
+        else {
+            let everyKeys = trim(userKeys).split('|')[index];
+            
+            if (everyKeys.length !== 0) {
+                everyKeys = everyKeys.split(',').filter(i => i);
+                finalKeysArr[index] = everyKeys;
+            }
+            else if (everyKeys.length === 0) {
+                finalKeysArr[index] = [];
+            }
+        }
     }
-    else {
-        keys = Config.defaultPrefixKeyName;
-    }
-    return keys;
+
+
+    return finalKeysArr;
 }
 
 
@@ -52,4 +65,5 @@ module.exports = {
     isPath,
     getValueType,
     getFinalKeys,
-    getFinalJsonName}
+    getFinalJsonName
+}
