@@ -25,8 +25,8 @@ program
 .option('-i, --input [path]', Text.infoText('Path of excel to be converted'))
 .option('-o, --output [path]', Text.infoText('Path to the output json file'))
 .option('-n, --json-name [string]', Text.infoText('Name of the output json file'))
-.option('-k, --keys [string]', Text.infoText('The key value corresponding to each row of each sheet'))
-.option('-s, --start-row [number]', Text.infoText('Read data from what row of excel'))
+.option('-k, --keys [string]', Text.infoText('The key value corresponding to each column of each sheet'))
+.option('-s, --start-row [number]', Text.infoText('Read data from what row of sheet'))
 .action(function(options) {
     // console.log(options);
     try {
