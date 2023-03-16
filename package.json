@@ -1,6 +1,6 @@
 {
   "name": "ejc-cli",
-  "version": "0.0.12",
+  "version": "1.0.0",
   "description": "Manage your json data better with visual excel sheets",
   "main": "./src/index.js",
   "bin": {
