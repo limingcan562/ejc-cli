@@ -13,6 +13,9 @@ English | [简体中文](./READEME_zh-CN.md)
 
 </div>
 
+## Screenshot
+![Screenshot](./media/screenshot.png)
+
 
 ## Introduction
 > `ejc-cli`, the first three letters of which consist of the initials `excel`, `json` or `js`, `cli`.
