@@ -6,6 +6,13 @@
   "bin": {
     "ejc-cli": "./bin/cli.js"
   },
+  "files": [ 
+    "bin",
+    "media",
+    "src",
+    "template",
+    "READEME_zh-CN.md"
+  ],
   "scripts": {
     "start": "npm link"
   },

@@ -1,8 +1,5 @@
 
 <div align="center">
-<!-- <div>
-    <h1>ejc-cli<h1>
-</div> -->
 
 <img src="./media/logo.svg?v=1" width="70%">
 
@@ -11,6 +8,8 @@
 ![vsersion](https://img.shields.io/npm/v/ejc-cli) 
 ![download](https://img.shields.io/npm/dm/ejc-cli)
 ![license](https://img.shields.io/npm/l/ejc-cli)
+
+[English](./README.md) | 简体中文
 
 </div>
 
@@ -98,7 +97,7 @@ Commands:
 | `-i` | 是 | | 要转换的excel表格所在路径 | 
 | `-o` | 否 | 当前目录的`xlsx_json`文件夹下 | `json`文件输出路径 |
 | `-n` | 否 | 默认`sheet`数量索引命名</br>（`data_1.json, data_2.json,...`） | 输出的`json`文件名字 |
-| `-k` | 否 | 默认会以当前每行的索引作为`key`</br>（`[{key_1: ''}, {key_2: ''},...]`） | `excel`表格中每行对应要设置的`key`值名称 | 可以用<code>&#124;</code>来设置每个`sheet`导出的`json`数据的`key`
+| `-k` | 否 | 默认会以当前每列的索引作为`key`</br>（`[{key_1: ''}, {key_2: ''},...]`） | `excel`表格中每列对应要设置的`key`值名称 | 可以用<code>&#124;</code>来设置每个`sheet`导出的`json`数据的`key`
 | `-s` | 否 | `3` | 从excel表格中哪一行开始读取数据  |  可以用<code>&#124;</code>来设置每个`sheet`从第几行开始读取数据
 | `-h` | 否 | | 查看帮助  |
 
@@ -118,7 +117,7 @@ Commands:
 - 第三块，我们称它为（`B`），它所在的行数，就是程序要开始读取数据的行数（`-s 3`）
 
 ## How to use your own excel sheet
-因为每个人的制作的excel都不一样，所以我们强烈建议你用使用我们模板excel文件（`template.xlsx`）来管理数据，但是这个文件也许样式不一定能满足你。  
+因为每个人的制作的excel都不一样，所以我们强烈建议你使用我们模板excel文件（`template.xlsx`）来管理数据，但是这个文件也许样式不一定能满足你。  
 
 所以如果你想`DIY`表格的样式，根据 [Explanation](#Explanation) 模块的分析，`DIY`你的表格时需要遵循以下规则：
 - `T`跟`M`模块是非必须的，**但是，请保证你的excel文件里的数据，与上图的`B`模块结构相同**
