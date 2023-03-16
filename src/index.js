@@ -38,12 +38,8 @@ function convertToJson(options) {
         // colWidths: [50, 100]
     });
 
-    // console.log();
-    // Log('Please confirm that you read the data from the row of excel.', 'info');
-    // console.log(chalk.hex('#A37FFF')(`The current number of rows to read is`), `${Text.infoText(startRow)}.`);
-    // console.log();
-
     Log('Json data being generated...', 'info');
+    console.log();
 
     // 最外层
     for (let index = 0; index < totalSheet.length; index++) {
@@ -57,11 +53,12 @@ function convertToJson(options) {
         singleJsonObj = {}, // 每个表格作为一个数据（对象形式）
         totalRowJsonArr = []; // 用来存放excel每行组装成的对象数据（singleRowObj）
 
+        console.log(chalk.hex('#A37FFF')(`Currently reading data from line ${Text.infoText(finalStartRow[index][0])} of ${Text.infoText('sheet ' + (index + 1))}`));
+
         // 检测输入的key长度，与表格的长度是不是相等
         if (flag && finalkeys[index].length < maxRowLength) {
-            console.log();
             Log(`The maximum number of columns in ${Text.infoText('Sheet ' + (index + 1))} is ${Text.infoText(maxRowLength)}.\nThe number of key values you set is ${Text.infoText(finalkeys[index].length)}.`, 'warn');
-            console.log(chalk.hex('#f5e724')(`The number of entries of json data will be rendered according to the number of key values you set.`));
+            console.log(chalk.hex('#f5e724')(`The number of each data in json data will be rendered according to the number of key values you set.`));
             console.log();
         }
 
@@ -115,6 +112,7 @@ function convertToJson(options) {
 
 
     // 打印最后的json文件地址
+    console.log();
     Log('Json data generated successfully.', 'success');
     console.log(table.toString());
 }

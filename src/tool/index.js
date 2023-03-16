@@ -47,11 +47,11 @@ const getFinalKeys = (userKeys, totalSheetNum) => {
 // 获取 用于最后每个表格，开始读取数据的行数
 const getFinalStartRow = (userRow, totalSheetNum) => {
     let finalStartRow = [];
-    let spliceLength = 1;
+    let spliceLength = 2;
 
     for (let index = 0; index < totalSheetNum; index++) {
         if (!userRow) {
-            finalStartRow[index] = Config.defaultStartRow;
+            finalStartRow[index] = [Config.defaultStartRow];
         }
         else if (!userRow.includes(Config.delimiter)) {
             let everyStartRow = parseInt(trim(userRow));
@@ -61,7 +61,8 @@ const getFinalStartRow = (userRow, totalSheetNum) => {
             let everyStartRowStr = trim(userRow).split(Config.delimiter)[index];
             let everyStartRowArr = everyStartRowStr.split(',').filter(i => i && parseInt(i));
             let everyStartRow = everyStartRowArr.slice(0, spliceLength);
-            // console.log(everyStartRow, 2222);
+
+            // console.log(everyStartRow);
 
             if (everyStartRow.length !== 0) {
                 finalStartRow[index] = everyStartRow;
@@ -71,7 +72,7 @@ const getFinalStartRow = (userRow, totalSheetNum) => {
             }
         }
     }
-    console.log(finalStartRow, 1);
+    // console.log(finalStartRow);
     return finalStartRow;
 }
 
