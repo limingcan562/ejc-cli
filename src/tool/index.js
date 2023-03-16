@@ -55,7 +55,7 @@ const getFinalStartRow = (userRow, totalSheetNum) => {
         }
         else if (!userRow.includes(Config.delimiter)) {
             let everyStartRow = parseInt(trim(userRow));
-            finalStartRow[index] = everyStartRow;
+            finalStartRow[index] = [everyStartRow];
         }
         else {
             let everyStartRowStr = trim(userRow).split(Config.delimiter)[index];
