@@ -13,8 +13,8 @@
 
 </div>
 
-## Screenshot
-![Screenshot](./media/screenshot.png)
+## Effects
+![Effects](./media/effects.png)
 
 ## Introduction
 > `ejc-cli`，前三个字母由`excel`、`json`或者`js`、`cli`三个单词首字母组成。

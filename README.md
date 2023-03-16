@@ -13,8 +13,8 @@ English | [简体中文](./READEME_zh-CN.md)
 
 </div>
 
-## Screenshot
-![Screenshot](./media/screenshot.png)
+## Effects
+![Effects](./media/effects.png)
 
 
 ## Introduction
