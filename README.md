@@ -3,7 +3,7 @@
 
 <img src="./media/logo.svg?v=1" width="70%">
 
-Make visual excel spreadsheets to better manage your `json` data
+Manage your `json` data better with visual excel sheets
 
 ![vsersion](https://img.shields.io/npm/v/ejc-cli) 
 ![download](https://img.shields.io/npm/dm/ejc-cli)
