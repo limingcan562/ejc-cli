@@ -90,7 +90,7 @@ Commands:
   gt [path]                 Get the excel template file
 ````
 
-### 选项
+### Options
 | Parameters | Required | Default | Description | Supplementary
 | ---| --- | --- | --- | ---
 | `-v` | No | | View current version | 
@@ -101,7 +101,7 @@ Commands:
 | `-s` | No | `3` | Which row to start reading data from in an excel sheet  |  You can use <code>&#124;</code> to set the row from which each `sheet` is to be read
 | `-h` | No | | View Help
 
-### 命令
+### Commands
 | Statement | Parameters | Description
 | ---|  --- |  --- |
 | `gt` | `path` | `path` is the directory where the template excel file is saved.</br>When `path` is empty, the template excel file is saved in the `xlsx_template` folder of the current directory by default
