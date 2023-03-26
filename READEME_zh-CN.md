@@ -3,7 +3,7 @@
 
 <img src="./media/logo.svg?v=1" width="70%">
 
-让可视化的excel表格，更好的管理你的json数据
+让可视化的`excel`表格，更好的管理你的`json`数据
 
 ![vsersion](https://img.shields.io/npm/v/ejc-cli) 
 ![download](https://img.shields.io/npm/dm/ejc-cli)
@@ -13,8 +13,16 @@
 
 </div>
 
-## Effects
-![Effects](./media/effects.png)
+## Effect preview
+
+模板`Excel`文件：
+![模板Excel文件](./media/template_excel.png)
+
+使用效果：
+![使用效果](./media/preview.gif)
+
+输出`json`数据：
+![输出`json`数据](./media/effects.png)
 
 ## Introduction
 > `ejc-cli`，前三个字母由`excel`、`json`或者`js`、`cli`三个单词首字母组成。

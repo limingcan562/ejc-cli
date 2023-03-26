@@ -13,9 +13,16 @@ English | [简体中文](./READEME_zh-CN.md)
 
 </div>
 
-## Effects
-![Effects](./media/effects.png)
+## Effect preview
 
+Template `Excel` files：
+![Template `Excel` files](./media/template_excel.png)
+
+Effect of use:
+![Effect of use](./media/preview.gif)
+
+Output `json` data:
+![Output `json` data](./media/effects.png)
 
 ## Introduction
 > `ejc-cli`, the first three letters of which consist of the initials `excel`, `json` or `js`, `cli`.
@@ -70,7 +77,7 @@ Here are the following caveats in use.
   
   You can try running the following command to see the difference in the output data
   ````npm
-  ejc-cli -i '. /xlsx_template/template.xlsx' -k 'order, title' -n 'movieData, novelData'
+  ejc-cli -i './xlsx_template/template.xlsx' -k 'order, title' -n 'movieData, novelData'
   ````
   The output of the `json` data is only `order` and `title` values
 
