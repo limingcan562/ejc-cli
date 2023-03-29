@@ -16,24 +16,36 @@ English | [简体中文](./READEME_zh-CN.md)
 ## Effect preview
 
 Template `Excel` files：
+
 ![Template `Excel` files](./media/template_excel.png)
 
-Effect of use:
-![Effect of use](./media/preview.gif)
+Usage effect:
+
+![Usage effect](./media/preview.gif)
 
 Output `json` data:
+
 ![Output `json` data](./media/effects.png)
 
 ## Introduction
-> `ejc-cli`, the first three letters of which consist of the initials `excel`, `json` or `js`, `cli`.
+> `ejc-cli`, the first three letters of which consist of the initials `excel`, `json`, `cli`.
 
-Our projects sometimes save on back-end development costs by storing some data directly locally in `json` or `js` files and then using that data for rendering. But when we have more data, maintaining a lengthy `json` or `js` file can be laborious, and these files can only be propagated among developers.
+### Practical issues
+Sometimes, in order to save back-end development costs, we use `json` files to store some data locally, and then use these data for rendering. However:
 
-To solve these pain points, using excel to manage our data is a great option.  
+- If there are too many pages or modules that require data, the corresponding `json` files will also increase. There are too many files and data is too fragmented, making managing so many files difficult
+- When the amount of data is large, the data can become very lengthy, and it is difficult to directly find a specific piece of data
+- Sometimes `json` is not a good way to spread our data when we want to share it with other non developers
 
-excel allows for a more visual and organised way of collecting and managing our data than a `json` or `js` file. So we can use excel to collect the data we want, and then use the `ejc-cli` tool to export the `json` files that developers use.
+### Why choose Excel to manage data
+- More convenient operation. Excel is a professional office software. Adding, deleting, modifying, and querying data in Excel is of course much more convenient than modifying it in our editor
+- More visual. Each sheet can be used as data for a certain page or module; The name of each sheet is the name of our json; Each row of data in the sheet is the data of each of our `json`
+- More convenient management. The data is integrated into an Excel file, making it easier for us to manage the data of all modules or pages
+- More suitable for dissemination. `json` is not suitable for dissemination among non developers, but Excel is suitable for all people. Not only can non developers modify this Excel, but if you find a problem in Excel, you can also modify it and then sync it to others.
 
-**One of the great benefits of this is that not only is it easier to manage the data, but it is no longer restricted to the developers, as non-developers can use excel to distribute it**. This also makes it much more efficient and enhances collaboration between different people.
+### Tools are born
+Therefore, in order to solve the above problems and combine the comprehensive advantages of Excel, `ej-cli` was born, so you only need to focus on managing the Excel file.
+
 
 ## Quick start
 ### 1. Installation tools
