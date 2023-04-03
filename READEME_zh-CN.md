@@ -3,9 +3,9 @@
 
 <img src="./media/logo.svg?v=1" width="70%">
 
-让可视化的`excel`表格，更好的管理你的`json`数据
+让可视化的`Excel`表格，更好的管理你的`json`数据
 
-![vsersion](https://img.shields.io/npm/v/ejc-cli) 
+![npm](https://img.shields.io/npm/v/ejc-cli?logo=npm)
 ![download](https://img.shields.io/npm/dm/ejc-cli)
 ![license](https://img.shields.io/npm/l/ejc-cli)
 
