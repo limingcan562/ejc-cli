@@ -3,9 +3,9 @@
 
 <img src="./media/logo.svg?v=1" width="70%">
 
-Manage your `json` data better with visual excel sheets
+Manage your `json` data better with visual Excel sheets
 
-![vsersion](https://img.shields.io/npm/v/ejc-cli) 
+![npm](https://img.shields.io/npm/v/ejc-cli?logo=npm)
 ![download](https://img.shields.io/npm/dm/ejc-cli)
 ![license](https://img.shields.io/npm/l/ejc-cli)
 
