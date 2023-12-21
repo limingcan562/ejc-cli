@@ -16,7 +16,7 @@ program
 .name(pkg.name)
 // .usage("[global options] command")
 .description(`${Text.descText('=> Manage your json data better with visual excel sheets')}`)
-.version(pkg.version, '-v', Text.infoText('View current version'))
+.version(Text.descText(Tool.LOGO), '-v', Text.infoText('View current version'))
 .helpOption('-h, --help', Text.infoText('View help'));
 
 
