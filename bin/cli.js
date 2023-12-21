@@ -9,6 +9,7 @@ Text = require('../src/text/index'),
 Core = require('../src/index'),
 Tool = require('../src/tool/index'),
 Log = require('../src/log/index'),
+Config = require('../src/config/index'),
 program = new Command();
 
 // 基础配置
@@ -16,7 +17,7 @@ program
 .name(pkg.name)
 // .usage("[global options] command")
 .description(`${Text.descText('=> Manage your json data better with visual excel sheets')}`)
-.version(Text.descText(Tool.LOGO), '-v', Text.infoText('View current version'))
+.version(Text.descText(Config.LOGO), '-v', Text.infoText('View current version'))
 .helpOption('-h, --help', Text.infoText('View help'));
 
 
