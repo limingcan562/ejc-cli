@@ -14,7 +14,9 @@
     "READEME_zh-CN.md"
   ],
   "scripts": {
-    "start": "npm link"
+    "start": "npm link",
+    "test:template": "ejc-cli -i ./test/template.xlsx -k order,title,date,director,genre,cast,money -n movieData,songData -o ./test/json/",
+    "test:complex": "ejc-cli -i ./test/complex.xlsx -s 2 -k id,name,desc,type,type_title,type_desc,images -o ./test/json/"
   },
   "repository": {
     "type": "git",

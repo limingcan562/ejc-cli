@@ -105,3 +105,4 @@ dist
 
 xlsx_template
 xlsx_json
+test/json
