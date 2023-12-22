@@ -76,7 +76,20 @@ ejc-cli gt './xlsx_template/'
     ````
     这样的话，`ejc-cli`会从`第3行`开始读取第一个`sheet`的数据，第一个`sheet`的`json`数据key值是`order, title, date`；  
     `ejc-cli`会从`第4行`开始读取第二个`sheet`的数据，第二个`sheet`的`json`数据key值是`num, song_title, artist`
+- 集成到您的项目中  
 
+  - 在 `package.json` 中配置相关命令： 
+    ```json 
+    {
+      "script": {
+        "get:data": "ejc-cli -i ./xlsx_template/template.xlsx -k \"order,title,date|num,song_title,artist\" -s \"2|3\" -n 'movieData,songData'"
+      }
+    }
+    ````
+  - 运行相关`scrpit`命令输出数据：
+    ```npm
+    npm run get:data
+    ```
 
 ## Notice
 在使用过程中，这里有以下注意事项：
@@ -85,9 +98,12 @@ ejc-cli gt './xlsx_template/'
   
   你可以试试执行以下命令，看看输出的数据有什么区别
   ````npm
-  ejc-cli -i './xlsx_template/template.xlsx' -k 'order, title' -n 'movieData, novelData'
+  ejc-cli -i './xlsx_template/template.xlsx' -k 'order,title' -n 'movieData,novelData'
   ````
   这时输出的`json`数据只有`order`，`title`两个值
+- 当你将 `ejc-cli` 集成到项目中时： 
+  - 所有语句都可以不加 `'` 单引号
+  - **使用 `|` 分隔符时，请使用转义字符，以便与不同系统兼容(`2|3` => `\"2|3\"`)**
 
 ## Options and commands
 ````npm

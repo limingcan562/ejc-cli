@@ -68,7 +68,7 @@ This will give us access to an excel template file, then just replace the data i
 
     If you have more than one `sheet` in your excel file and they have a similar structure (like the two `sheets` in the `template.xlsx` file), then you can simply set:
     ````npm
-    ejc-cli -i './xlsx_template/template.xlsx' -k 'order, title, date, director, genre, cast, money' -s 3 -n 'movieData, songData'
+    ejc-cli -i './xlsx_template/template.xlsx' -k 'order,title,date,director,genre,cast,money' -s 3 -n 'movieData,songData'
     ````
     In this case, `ejc-cli` will read the data from `row 3` of all `sheets` and the `key` values of all the output `json` data will be `order, title, date, director, genre, cast, money`.
 
@@ -76,11 +76,23 @@ This will give us access to an excel template file, then just replace the data i
 
     If you have more than one `sheet` in your excel file, and each `sheet` does not always start reading data from `line 3`, and each `sheet` does not always have the same `key` value, then you can use the "`|`" splitter:
     ````npm
-    ejc-cli -i './xlsx_template/template.xlsx' -k 'order, title, date | num, song_title, artist' -s '3 | 4' -n 'movieData, songData'
+    ejc-cli -i './xlsx_template/template.xlsx' -k 'order,title,date|num,song_title,artist' -s '3|4' -n 'movieData,songData'
     ````
     In this case, `ejc-cli` will read the data of the first `sheet` starting from `line 3`, and the `json` data key value of the first `sheet` will be `order, title, date`.  
     `ejc-cli` will read the data of the second `sheet` starting from `line 4`, and the `json` data key values of the second `sheet` are `num, song_title, artist`
-
+- Integrate into your project  
+  - Configure relevant commands in `package.json`: 
+    ```json 
+    {
+      "script": {
+        "get:data": "ejc-cli -i ./xlsx_template/template.xlsx -k \"order,title,date|num,song_title,artist\" -s \"2|3\" -n 'movieData,songData'"
+      }
+    }
+    ````
+  - Run the relevant `scrpit` command to output the data: 
+    ```npm
+    npm run get:data
+    ```
 
 ## Notice
 Here are the following caveats in use.
@@ -89,9 +101,13 @@ Here are the following caveats in use.
   
   You can try running the following command to see the difference in the output data
   ````npm
-  ejc-cli -i './xlsx_template/template.xlsx' -k 'order, title' -n 'movieData, novelData'
+  ejc-cli -i './xlsx_template/template.xlsx' -k 'order,title' -n 'movieData,novelData'
   ````
   The output of the `json` data is only `order` and `title` values
+- When integrating `ejc-cli` into your project: 
+  - All statements can be made without `'` single quotes
+  - **When using the `|` delimiter, please use the escape character for compatibility with different systems. (`2|3` => `\"2|3\"`)**
+
 
 ## Options and commands
 ````npm
@@ -135,7 +151,7 @@ We can look at the structure of the obtained template excel file (`template.xlsx
 
 The overall structure of the table is generally divided into three blocks (`top`, `middle`, `bottom`).
 - The first block, which we call (`T`), refers to the broad heading of the entire table
-- The second, which we call (`M`), is an overview of the information in each column of the table and is also used to set the corresponding `key` value (`-k 'order, title, date, director, genre, cast, money'`)
+- The second, which we call (`M`), is an overview of the information in each column of the table and is also used to set the corresponding `key` value (`-k 'order,title,date,director,genre,cast,money'`)
 - The third block, which we will call (`B`), is the number of rows in which the program will start reading data (`-s 3`)
 
 ## How to use your own excel sheet
